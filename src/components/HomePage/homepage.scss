@@ -1,0 +1,20 @@
+.carousel-item {
+  img {
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    max-height: 90vh;
+    min-height: 90vh;
+  }
+  @media(max-width: 1366px) {
+    max-height: 85vh;
+    min-height: 85vh;
+  }
+  @media(max-width: 1024px) {
+    
+  }
+}
+
+
