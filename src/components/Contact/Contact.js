@@ -4,17 +4,45 @@ import { withRouter } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 
 class Contact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      first_name: '',
+      last_name: '',
+      user_email: '',
+      subject: '',
+      message: '',
+    };
+  }
+
+  isChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState({ [name]: value });
+  };
+
   submitForm = (event) => {
     event.preventDefault(); //ngan chan button load lai trang cua form
 
-    emailjs
-      .sendForm('service_gz04qmw', 'template_as7slqj', event.target, 'user_SK39cRin0JOtUTfBmjYeR')
-      .then((res) => {
-        console.log(res);
+    if (
+      !this.state.first_name ||
+      !this.state.last_name ||
+      !this.state.user_email ||
+      !this.state.subject ||
+      !this.state.message
+    ) {
+      alert('Please provide value in each input field');
+    } else {
+      emailjs
+        .sendForm('service_gz04qmw', 'template_as7slqj', event.target, 'user_SK39cRin0JOtUTfBmjYeR')
+        .then(() => {
+          alert('Send contact successfully!');
+        })
+        .catch((err) => console.log(err));
 
-        this.props.history.push('/');
-      })
-      .catch((err) => console.log(err));
+      event.target.reset();
+    }
   };
 
   render() {
@@ -39,13 +67,20 @@ class Contact extends Component {
                 placeholder=''
                 aria-label='First name'
                 name='first_name'
+                onChange={(event) => this.isChange(event)}
               />
               <div id='' className='form-text'>
                 First name
               </div>
             </div>
             <div className='col'>
-              <input type='text' className='form-control' placeholder='' name='last_name' />
+              <input
+                type='text'
+                className='form-control'
+                placeholder=''
+                name='last_name'
+                onChange={(event) => this.isChange(event)}
+              />
               <div id='' className='form-text'>
                 Last name
               </div>
@@ -61,6 +96,7 @@ class Contact extends Component {
               id='exampleInputEmail1'
               aria-describedby='emailHelp'
               name='user_email'
+              onChange={(event) => this.isChange(event)}
             />
           </div>
           <div className='mb-4'>
@@ -73,6 +109,7 @@ class Contact extends Component {
               id='formGroupExampleInput'
               placeholder=''
               name='subject'
+              onChange={(event) => this.isChange(event)}
             />
           </div>
           <div className='mb-4'>
@@ -82,6 +119,7 @@ class Contact extends Component {
               id='exampleFormControlTextarea1'
               rows='3'
               name='message'
+              onChange={(event) => this.isChange(event)}
             />
           </div>
           <div className='d-grid justify-content-end'>

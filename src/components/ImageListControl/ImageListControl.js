@@ -1,68 +1,68 @@
 import React, { Component } from 'react';
 import ImageItemControl from '../ImageItemControl/ImageItemControl';
-import data from '../../data.json';
 import AddImage from '../AddImage/AddImage';
-import ControlAddImage from '../ControlAddImage/ControlAddImage';
+import { firebaseData } from '../../firebaseConnect';
 
 class ImageListControl extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showFormAddImage: false,
-      data: data,
+      dataFirebase: [],
     };
   }
-  getNewImageData = (image_src, title, date, descript) => {
-    var item = {};
-    item.id = '';
-    item.image_src = image_src;
-    item.title = title;
-    item.date = date;
-    item.descript = descript;
 
-    var items = this.state.data;
-    items.push(item);
-
-    this.setState({
-      data: items,
+  componentWillMount() {
+    var data = firebaseData.database().ref('dataImage/');
+    data.on('value', (items) => {
+      var arrayData = [];
+      items.forEach((element) => {
+        const key = element.key;
+        const image_src = element.val().image_src;
+        const title = element.val().title;
+        const date = element.val().date;
+        const descript = element.val().descript;
+        arrayData.push({
+          id: key,
+          image_src: image_src,
+          title: title,
+          date: date,
+          descript: descript,
+        });
+      });
+      this.setState({
+        dataFirebase: arrayData,
+      });
     });
-
-    console.log('ket noi ok roi');
-    console.log(this.state.data);
+  }
+  getData = () => {
+    if (this.state.dataFirebase) {
+      return this.state.dataFirebase.map((value, key) => {
+        return (
+          <ImageItemControl
+            key={key}
+            imgLink={value.image_src}
+            title={value.title}
+            date={value.date}
+            descript={value.descript}
+          ></ImageItemControl>
+        );
+      });
+    }
   };
+
   changeStatusForm = () => {
     this.setState({
       showFormAddImage: !this.state.showFormAddImage,
     });
   };
+
   render() {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>
         <h1>Manager</h1>
-        <ControlAddImage
-          changeStatusForm={() => this.changeStatusForm()}
-          showFormAddImage={this.state.showFormAddImage}
-        />
-        <AddImage
-          addImage={(image_src, title, date, descript) =>
-            this.getNewImageData(image_src, title, date, descript)
-          }
-          showFormAddImage={this.state.showFormAddImage}
-        />
-        <div className='row row-cols-1 row-cols-md-3 g-4'>
-          {data.map((value, key) => {
-            return (
-              <ImageItemControl
-                key={key}
-                imgLink={value.image_src}
-                title={value.title}
-                date={value.date}
-                descript={value.descript}
-              ></ImageItemControl>
-            );
-          })}
-        </div>
+        <AddImage />
+        <div className='row row-cols-1 row-cols-md-3 g-4'>{this.getData()}</div>
       </div>
     );
   }
