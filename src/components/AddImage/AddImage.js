@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 class AddImage extends Component {
   constructor(props) {
@@ -12,6 +13,17 @@ class AddImage extends Component {
       descript: '',
     };
   }
+  componentDidMount() {
+    if (this.props.editItem) {
+      this.setState({
+        id: this.props.editItem.id,
+        image_src: this.props.editItem.image_src,
+        title: this.props.editItem.title,
+        date: this.props.editItem.date,
+        descript: this.props.editItem.descript,
+      });
+    }
+  }
 
   isChange = (event) => {
     const name = event.target.name;
@@ -20,131 +32,148 @@ class AddImage extends Component {
     this.setState({ [name]: value });
   };
 
-  addData = (imgURL, title, date, descript) => {
-    if (!this.state.image_src || !this.state.title || !this.state.date || !this.state.descript) {
-      alert('Please provide value in each input field');
-    } else {
-      var item = {};
-      item.image_src = imgURL;
-      item.title = title;
-      item.date = date;
-      item.descript = descript;
+  // addEditData = (imgURL, title, date, descript) => {
+  //   if (this.state.id) {
+  //     let editObject = {};
+  //     editObject.id = this.state.id;
+  //     editObject.image_src = this.state.image_src;
+  //     editObject.title = this.state.title;
+  //     editObject.date = this.state.date;
+  //     editObject.descript = this.state.descript;
 
-      this.props.addDataStore(item);
+  //     alert('Update data successfully!!!');
+  //     this.props.editDataStore(editObject);
+
+  //     this.props.changeAddStatusStore();
+  //   } else {
+  //     if (!this.state.image_src || !this.state.title || !this.state.date || !this.state.descript) {
+  //       alert('Please provide value in each input field!!!');
+  //     } else {
+  //       let item = {};
+  //       item.image_src = imgURL;
+  //       item.title = title;
+  //       item.date = date;
+  //       item.descript = descript;
+
+  //       this.props.addDataStore(item);
+  //       alert('Add data successfully!!!');
+  //       this.props.changeAddStatusStore();
+  //     }
+  //   }
+  // };
+  addEditData = (imgURL, title, date, descript) => {
+    if (!this.state.image_src || !this.state.title || !this.state.date || !this.state.descript) {
+      toast.error('Please provide value in each input field!!!');
+    } else {
+      if (this.state.id) {
+        let editObject = {};
+        editObject.id = this.state.id;
+        editObject.image_src = this.state.image_src;
+        editObject.title = this.state.title;
+        editObject.date = this.state.date;
+        editObject.descript = this.state.descript;
+
+        toast.success('Update data successfully!!!');
+        this.props.editDataStore(editObject);
+
+        this.props.changeAddStatusStore();
+      } else {
+        let item = {};
+        item.image_src = imgURL;
+        item.title = title;
+        item.date = date;
+        item.descript = descript;
+
+        this.props.addDataStore(item);
+        toast.success('Add data successfully!!!');
+        this.props.changeAddStatusStore();
+      }
     }
   };
-
+  changeTitle = () => {
+    if (this.props.isAdd) {
+      return <h3>ADD IMAGE</h3>;
+    } else {
+      return <h3>EDIT IMAGE</h3>;
+    }
+  };
   render() {
     return (
       <div className='col px-0 flex-grow-1 '>
-        <div>
-          {/* Button trigger modal */}
-          <button
-            type='button'
-            className='btn btn-primary'
-            data-bs-toggle='modal'
-            data-bs-target='#exampleModal'
-          >
-            Add Image
-          </button>
-          {/* Modal */}
-          <div
-            className='modal fade'
-            id='exampleModal'
-            tabIndex={-1}
-            aria-labelledby='exampleModalLabel'
-            aria-hidden='true'
-          >
-            <div className='modal-dialog'>
-              <div className='modal-content'>
-                <div className='modal-header'>
-                  <h5 className='modal-title' id='exampleModalLabel'>
-                    ADD IMAGE FORM
-                  </h5>
-                  <button
-                    type='button'
-                    className='btn-close'
-                    data-bs-dismiss='modal'
-                    aria-label='Close'
-                  />
-                </div>
-                <div className='modal-body'>
-                  <form>
-                    <div className='mb-3'>
-                      <label className='form-label'>Link image *</label>
-                      <input
-                        name='image_src'
-                        className='form-control'
-                        type='text'
-                        aria-label='default input example'
-                        onChange={(event) => this.isChange(event)}
-                      />
-                    </div>
-                    <div className='mb-3'>
-                      <label className='form-label'>Title *</label>
-                      <input
-                        name='title'
-                        className='form-control'
-                        type='text'
-                        aria-label='default input example'
-                        onChange={(event) => this.isChange(event)}
-                      />
-                    </div>
-                    <div className='mb-3'>
-                      <label className='form-label'>Date *</label>
-                      <input
-                        name='date'
-                        className='form-control'
-                        type='text'
-                        aria-label='default input example'
-                        onChange={(event) => this.isChange(event)}
-                      />
-                    </div>
-                    <div className='mb-3'>
-                      <label htmlFor='exampleFormControlTextarea1' className='form-label'>
-                        Description *
-                      </label>
-                      <textarea
-                        name='descript'
-                        className='form-control'
-                        id='exampleFormControlTextarea1'
-                        rows={3}
-                        defaultValue={''}
-                        onChange={(event) => this.isChange(event)}
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div className='modal-footer'>
-                  <div
-                    className='btn btn-outline-warning '
-                    type='button'
-                    onClick={() =>
-                      this.addData(
-                        this.state.image_src,
-                        this.state.title,
-                        this.state.date,
-                        this.state.descript
-                      )
-                    }
-                  >
-                    Add
-                  </div>
-                  <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
+        <form>
+          {this.changeTitle()}
+          <div className='mb-3'>
+            <label className='form-label'>Link image *</label>
+            <input
+              name='image_src'
+              className='form-control'
+              type='text'
+              aria-label='default input example'
+              defaultValue={this.props.editItem.image_src}
+              onChange={(event) => this.isChange(event)}
+            />
           </div>
-        </div>
+          <div className='mb-3'>
+            <label className='form-label'>Title *</label>
+            <input
+              name='title'
+              className='form-control'
+              type='text'
+              aria-label='default input example'
+              defaultValue={this.props.editItem.title}
+              onChange={(event) => this.isChange(event)}
+            />
+          </div>
+          <div className='mb-3'>
+            <label className='form-label'>Date *</label>
+            <input
+              name='date'
+              className='form-control'
+              type='text'
+              aria-label='default input example'
+              defaultValue={this.props.editItem.date}
+              onChange={(event) => this.isChange(event)}
+            />
+          </div>
+          <div className='mb-3'>
+            <label htmlFor='exampleFormControlTextarea1' className='form-label'>
+              Description *
+            </label>
+            <textarea
+              name='descript'
+              className='form-control'
+              id='exampleFormControlTextarea1'
+              rows={3}
+              defaultValue={this.props.editItem.descript}
+              onChange={(event) => this.isChange(event)}
+            />
+          </div>
+          <div
+            className='btn btn-outline-warning '
+            type='button'
+            onClick={() =>
+              this.addEditData(
+                this.state.image_src,
+                this.state.title,
+                this.state.date,
+                this.state.descript
+              )
+            }
+          >
+            Save
+          </div>
+          <div type='close' className='btn btn-secondary'>
+            Close
+          </div>
+        </form>
       </div>
     );
   }
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    test: state.testConnect,
+    editItem: state.editItem,
+    isAdd: state.isAdd,
   };
 };
 
@@ -152,6 +181,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addDataStore: (getItem) => {
       dispatch({ type: 'ADD_DATA', getItem });
+    },
+    editDataStore: (getItem) => {
+      dispatch({ type: 'EDIT', getItem });
+    },
+    changeAddStatusStore: () => {
+      dispatch({ type: 'CHANGE_EDIT_STATUS' });
     },
   };
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Route, Switch } from 'react-router-dom';
 import Contact from '../components/Contact/Contact';
 import HomePage from '../components/HomePage/HomePage';
-import ImageListControl from '../components/ImageListControl/ImageListControl';
+import ImageControl from '../components/ImageControl/ImageControl';
 import ImagesList from '../components/ImagesList/ImagesList';
 import SignIn from '../components/SignIn/SignIn';
 import AddImage from '../components/AddImage/AddImage';
@@ -27,8 +27,8 @@ class RouterURL extends Component {
         <Route path='/images'>
           <ImagesList />
         </Route>
-        <Route path='/images-list-control'>
-          <ImageListControl />
+        <Route path='/image-control'>
+          <ImageControl />
         </Route>
       </Switch>
     );

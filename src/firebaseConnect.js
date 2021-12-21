@@ -11,7 +11,8 @@ const firebaseConfig = {
   appId: '1:874386038896:web:8536ad87319ff0abb7d4b5',
 };
 
-export const firebaseData = firebase.initializeApp(firebaseConfig);
+const firebaseData = firebase.initializeApp(firebaseConfig);
+export default firebaseData;
 
 // lấy dữ liệu
 //ref -> bảng dữ liệu
