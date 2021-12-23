@@ -12,18 +12,6 @@ class EditImage extends Component {
       descript: '',
     };
   }
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.editItem.id) {
-  //     return {
-  //       id: props.editItem.id,
-  //       image_src: props.editItem.image_src,
-  //       title: props.editItem.title,
-  //       date: props.editItem.date,
-  //       descript: props.editItem.descript,
-  //     };
-  //   }
-  //   return null;
-  // }
 
   isChange = (event) => {
     const name = event.target.name;

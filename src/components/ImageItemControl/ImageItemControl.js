@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+//import './imageitemcontrol.scss';
 
 class ImageItemControl extends Component {
   getEditData = () => {
@@ -15,7 +16,7 @@ class ImageItemControl extends Component {
   render() {
     return (
       <div className='col'>
-        <div className='card h-100' key={this.props.key}>
+        <div className='card h-100 item-control' key={this.props.key}>
           <img src={this.props.imgLink} className='card-img-top' alt='...' />
           <div className='card-body'>
             <h5 className='card-title'>{this.props.title}</h5>

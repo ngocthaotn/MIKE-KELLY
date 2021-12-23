@@ -31,36 +31,9 @@ class AddImage extends Component {
 
     this.setState({ [name]: value });
   };
-
-  // addEditData = (imgURL, title, date, descript) => {
-  //   if (this.state.id) {
-  //     let editObject = {};
-  //     editObject.id = this.state.id;
-  //     editObject.image_src = this.state.image_src;
-  //     editObject.title = this.state.title;
-  //     editObject.date = this.state.date;
-  //     editObject.descript = this.state.descript;
-
-  //     alert('Update data successfully!!!');
-  //     this.props.editDataStore(editObject);
-
-  //     this.props.changeAddStatusStore();
-  //   } else {
-  //     if (!this.state.image_src || !this.state.title || !this.state.date || !this.state.descript) {
-  //       alert('Please provide value in each input field!!!');
-  //     } else {
-  //       let item = {};
-  //       item.image_src = imgURL;
-  //       item.title = title;
-  //       item.date = date;
-  //       item.descript = descript;
-
-  //       this.props.addDataStore(item);
-  //       alert('Add data successfully!!!');
-  //       this.props.changeAddStatusStore();
-  //     }
-  //   }
-  // };
+  setField = () => {
+    this.props.setField();
+  };
   addEditData = (imgURL, title, date, descript) => {
     if (!this.state.image_src || !this.state.title || !this.state.date || !this.state.descript) {
       toast.error('Please provide value in each input field!!!');
@@ -76,7 +49,7 @@ class AddImage extends Component {
         toast.success('Update data successfully!!!');
         this.props.editDataStore(editObject);
 
-        this.props.changeAddStatusStore();
+        // this.props.changeAddStatusStore();
       } else {
         let item = {};
         item.image_src = imgURL;
@@ -85,23 +58,25 @@ class AddImage extends Component {
         item.descript = descript;
 
         this.props.addDataStore(item);
+        //this.props.setField();
         toast.success('Add data successfully!!!');
-        this.props.changeAddStatusStore();
+
+        //this.props.changeAddStatusStore();
       }
     }
   };
-  changeTitle = () => {
-    if (this.props.isAdd) {
-      return <h3>ADD IMAGE</h3>;
-    } else {
-      return <h3>EDIT IMAGE</h3>;
-    }
-  };
+  // changeTitle = () => {
+  //   if (this.props.isAdd) {
+  //     return <h3>ADD IMAGE</h3>;
+  //   } else {
+  //     return <h3>EDIT IMAGE</h3>;
+  //   }
+  // };
   render() {
     return (
       <div className='col px-0 flex-grow-1 '>
         <form>
-          {this.changeTitle()}
+          {/* {this.changeTitle()} */}
           <div className='mb-3'>
             <label className='form-label'>Link image *</label>
             <input
@@ -149,7 +124,7 @@ class AddImage extends Component {
             />
           </div>
           <div
-            className='btn btn-outline-warning '
+            className='btn btn-outline-dark '
             type='button'
             onClick={() =>
               this.addEditData(
@@ -162,9 +137,7 @@ class AddImage extends Component {
           >
             Save
           </div>
-          <div type='close' className='btn btn-secondary'>
-            Close
-          </div>
+          {/* <input className='btn btn-outline-warning ' type='reset' value='Reset' /> */}
         </form>
       </div>
     );
@@ -185,9 +158,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     editDataStore: (getItem) => {
       dispatch({ type: 'EDIT', getItem });
     },
-    changeAddStatusStore: () => {
-      dispatch({ type: 'CHANGE_EDIT_STATUS' });
+    setField: () => {
+      dispatch({ type: 'SET_FIELD' });
     },
+    // changeAddStatusStore: () => {
+    //   dispatch({ type: 'CHANGE_EDIT_STATUS' });
+    // },
   };
 };
 

@@ -11,17 +11,19 @@ class ImageControl extends Component {
   };
 
   changeAddStatus = () => {
+    this.props.setField();
     this.props.changeAddStatusStore(); //show form add image
-    this.props.changeAddTitleStore(); // change title add image
+    // this.props.changeAddTitleStore(); // change title add image
   };
 
   render() {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>
-        <h1>Manager</h1>
+        <h1 className='text-center'>Manager</h1>
         <button className='btn btn-secondary' onClick={() => this.changeAddStatus()}>
           Add Image
         </button>
+        <button className='btn btn-secondary'>Log out</button>
         {this.showAddView()}
         <ImageListControl />
       </div>
@@ -38,8 +40,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     changeAddStatusStore: () => {
       dispatch({ type: 'CHANGE_EDIT_STATUS' });
     },
-    changeAddTitleStore: () => {
-      dispatch({ type: 'CHANGE_ADD_STATUS' });
+    // changeAddTitleStore: () => {
+    //   dispatch({ type: 'CHANGE_ADD_STATUS' });
+    // },
+    setField: () => {
+      dispatch({ type: 'SET_FIELD' });
     },
   };
 };

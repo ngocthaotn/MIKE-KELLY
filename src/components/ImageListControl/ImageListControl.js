@@ -42,7 +42,7 @@ class ImageListControl extends Component {
       return this.state.dataFirebase.map((value, key) => {
         return (
           <ImageItemControl
-            key={value.title}
+            key={key}
             note={value}
             imgLink={value.image_src}
             title={value.title}

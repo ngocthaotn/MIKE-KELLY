@@ -3,4 +3,7 @@
     margin-left: 2rem ;
     max-width: 1600px;
   }
+  @media(max-width: 1400px) {
+   margin-right: 34px !important;
+  }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './contact.scss';
 import { withRouter } from 'react-router-dom';
 import emailjs from 'emailjs-com';
+import { toast } from 'react-toastify';
 
 class Contact extends Component {
   constructor(props) {
@@ -32,14 +33,14 @@ class Contact extends Component {
       !this.state.subject ||
       !this.state.message
     ) {
-      alert('Please provide value in each input field');
+      toast.warn('Please provide value in each input field');
     } else {
       emailjs
         .sendForm('service_gz04qmw', 'template_as7slqj', event.target, 'user_SK39cRin0JOtUTfBmjYeR')
         .then(() => {
-          alert('Send contact successfully!');
+          toast.success('Send contact successfully!');
         })
-        .catch((err) => console.log(err));
+        .catch((err) => toast.error(err));
 
       event.target.reset();
     }

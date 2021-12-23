@@ -1,16 +1,61 @@
 import React, { Component } from 'react';
 import ImageItem from '../ImageItem/ImageItem';
-import data from '../../data.json';
+import firebaseData from '../../firebaseConnect';
+
 class ImagesList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dataFirebase: [],
+    };
+  }
+  componentDidMount() {
+    const data = firebaseData.database().ref().child('dataImage');
+    data.on('value', (items) => {
+      const arrayData = [];
+      items.forEach((element) => {
+        const key = element.key;
+        const image_src = element.val().image_src;
+        const title = element.val().title;
+        const date = element.val().date;
+        const descript = element.val().descript;
+
+        arrayData.push({
+          id: key,
+          image_src: image_src,
+          title: title,
+          date: date,
+          descript: descript,
+        });
+      });
+
+      this.setState({
+        dataFirebase: arrayData,
+      });
+    });
+  }
+
+  getData = () => {
+    if (this.state.dataFirebase) {
+      return this.state.dataFirebase.map((value, key) => {
+        return (
+          <ImageItem
+            key={key}
+            note={value}
+            imgLink={value.image_src}
+            title={value.title}
+            date={value.date}
+            descript={value.descript}
+          />
+        );
+      });
+    }
+  };
   render() {
-    console.log(data);
     return (
       <div className='col px-0 flex-grow-1 mt-5'>
-        <div className='row'>
-          <ImageItem imgLink='https://images.squarespace-cdn.com/content/v1/5c0a0a92b27e3986f51e5eb0/1605126351262-B3Y963MWPHSQXP6NP131/_H4A3270.jpg?format=500w'></ImageItem>
-          <ImageItem></ImageItem>
-          <ImageItem></ImageItem>
-        </div>
+        <div className='row'>{this.getData()}</div>
       </div>
     );
   }

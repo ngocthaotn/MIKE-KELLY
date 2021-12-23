@@ -6,6 +6,8 @@ const noteInitialState = {
   isEdit: false,
   isAdd: false,
   editItem: {},
+  user: null,
+  loading: true,
 };
 const allReducer = (state = noteInitialState, action) => {
   switch (action.type) {
@@ -31,14 +33,20 @@ const allReducer = (state = noteInitialState, action) => {
     case 'DELETE':
       firebaseData.database().ref('dataImage/').child(action.deleteId).remove();
       return state;
+    case 'SET_FIELD':
+      return { ...state, editItem: {} };
+    case 'SET_USER':
+      return { ...state, user: action.setUser, loading: true };
+    case 'CLEAR_USER':
+      return { ...state, user: null, loading: false };
     default:
       return state;
   }
 };
 
 var store = redux.createStore(allReducer);
-store.subscribe(function () {
-  console.log(JSON.stringify(store.getState()));
-});
+// store.subscribe(function () {
+//   console.log(JSON.stringify(store.getState()));
+// });
 
 export default store;
