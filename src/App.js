@@ -8,24 +8,24 @@ import firebaseData from './firebaseConnect';
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import history from './history';
-import ImageControl from './components/ImageControl/ImageControl';
-import HomePage from './components/HomePage/HomePage';
+import { setUser, clearUser } from './redux/users/userActions';
 
 class App extends Component {
+  //check user
   componentDidMount() {
     firebaseData.auth().onAuthStateChanged((user) => {
       if (user) {
-        history.push('/');
+        history.push('/image-control');
         this.props.setUser(user);
       } else {
-        history.push('/login');
+        history.push('/');
         this.props.clearUser();
       }
     });
   }
 
   render() {
-    const { loading } = this.props;
+    //const { loading } = this.props;
     return (
       <div className='container'>
         <div className='row flex-column flex-md-row'>
@@ -39,18 +39,18 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ user: { loading } }) => {
   return {
-    loading: state.loading,
+    loading: loading,
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    setUser: (setUser) => {
-      dispatch({ type: 'SET_USER', setUser });
+    setUser: (user) => {
+      dispatch(setUser(user));
     },
     clearUser: () => {
-      dispatch({ type: 'CLEAR_USER' });
+      dispatch(clearUser());
     },
   };
 };

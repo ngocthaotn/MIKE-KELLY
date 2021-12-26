@@ -5,7 +5,7 @@ import HomePage from '../components/HomePage/HomePage';
 import ImageControl from '../components/ImageControl/ImageControl';
 import ImagesList from '../components/ImagesList/ImagesList';
 import Login from '../components/auth/Login/Login';
-// import ForgotPassword from '../components/auth/ForgotPassword/ForgotPassword';
+import ForgotPassword from '../components/auth/ForgotPassword/ForgotPassword';
 
 class RouterURL extends Component {
   render() {
@@ -27,9 +27,9 @@ class RouterURL extends Component {
         <Route exact path='/image-control'>
           <ImageControl />
         </Route>
-        {/* <Route exact path='/forgot-password'>
+        <Route exact path='/forgot-password'>
           <ForgotPassword />
-        </Route> */}
+        </Route>
       </Switch>
     );
   }

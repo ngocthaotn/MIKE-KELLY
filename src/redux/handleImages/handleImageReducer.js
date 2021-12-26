@@ -1,15 +1,7 @@
-import firebaseData from '../firebaseConnect';
+import firebaseData from '../../firebaseConnect';
 
-var redux = require('redux');
-
-const noteInitialState = {
-  isEdit: false,
-  isAdd: false,
-  editItem: {},
-  user: null,
-  loading: true,
-};
-const allReducer = (state = noteInitialState, action) => {
+const handleImageInitialState = { isEdit: false, isAdd: false, editItem: {} };
+const handleImageReducer = (state = handleImageInitialState, action) => {
   switch (action.type) {
     case 'ADD_DATA':
       firebaseData.database().ref('dataImage/').push(action.getItem);
@@ -35,18 +27,9 @@ const allReducer = (state = noteInitialState, action) => {
       return state;
     case 'SET_FIELD':
       return { ...state, editItem: {} };
-    case 'SET_USER':
-      return { ...state, user: action.setUser, loading: true };
-    case 'CLEAR_USER':
-      return { ...state, user: null, loading: false };
     default:
       return state;
   }
 };
 
-var store = redux.createStore(allReducer);
-// store.subscribe(function () {
-//   console.log(JSON.stringify(store.getState()));
-// });
-
-export default store;
+export default handleImageReducer;

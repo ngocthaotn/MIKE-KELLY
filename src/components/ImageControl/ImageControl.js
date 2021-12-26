@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AddImage from '../AddImage/AddImage';
 import ImageListControl from '../ImageListControl/ImageListControl';
-
+import { clearUser } from '../../redux/users/userActions';
+import firebaseData from '../../firebaseConnect';
 class ImageControl extends Component {
   showAddView = () => {
     if (this.props.isEdit) {
@@ -15,7 +16,14 @@ class ImageControl extends Component {
     this.props.changeAddStatusStore(); //show form add image
     // this.props.changeAddTitleStore(); // change title add image
   };
-
+  handleLogout = () => {
+    firebaseData
+      .auth()
+      .signOut()
+      .then(() => {
+        this.props.clearUser();
+      });
+  };
   render() {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>
@@ -23,16 +31,18 @@ class ImageControl extends Component {
         <button className='btn btn-secondary' onClick={() => this.changeAddStatus()}>
           Add Image
         </button>
-        <button className='btn btn-secondary'>Log out</button>
+        <button className='btn btn-secondary' onClick={() => this.handleLogout()}>
+          Log out
+        </button>
         {this.showAddView()}
         <ImageListControl />
       </div>
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ handleImage: { isEdit } }) => {
   return {
-    isEdit: state.isEdit,
+    isEdit: isEdit,
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -45,6 +55,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     // },
     setField: () => {
       dispatch({ type: 'SET_FIELD' });
+    },
+    clearUser: () => {
+      dispatch(clearUser());
     },
   };
 };

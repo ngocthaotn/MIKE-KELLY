@@ -73,14 +73,9 @@ class Navbar extends Component {
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/images'>
-                  SHOW IMAGE
+                  SHOW THUMBNAILS
                 </NavLink>
               </li>
-              {/* <li className='nav-item'>
-                <NavLink className='nav-link' to='/images-list-control'>
-                  SHOW IMAGE LIST
-                </NavLink>
-              </li> */}
             </ul>
           </div>
         </nav>

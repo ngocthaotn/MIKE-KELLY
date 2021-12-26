@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './login.scss';
 import firebaseData from '../../../firebaseConnect';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import ImageControl from '../../ImageControl/ImageControl';
 import { toast } from 'react-toastify';
 import { createBrowserHistory } from 'history';
@@ -45,6 +45,7 @@ class Login extends Component {
         .signInWithEmailAndPassword(email, password)
         .then((signedInUser) => {
           console.log('dang nhap thanh cong' + signedInUser);
+
           const history = createBrowserHistory({ forceRefresh: true });
           history.push('/image-control');
         })
@@ -56,6 +57,12 @@ class Login extends Component {
       toast.warn('Please provide value in each input field!!!');
     }
   };
+
+  formReset = () => {
+    const history = createBrowserHistory();
+    history.push('/forgot-password');
+  };
+
   render() {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>
@@ -89,6 +96,11 @@ class Login extends Component {
               value={this.state.password}
               onChange={(event) => this.isChange(event)}
             />
+          </div>
+          <div className='mb-4 text-center'>
+            {/* <Link to='/forgot-password' onClick={() => this.formReset()}>
+              Forgot password?
+            </Link> */}
           </div>
           <div className='mb-4 text-center'>
             <button className='btn btn-dark'>Login</button>

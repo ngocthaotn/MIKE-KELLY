@@ -143,11 +143,12 @@ class AddImage extends Component {
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ handleImage: { editItem } }) => {
   return {
-    editItem: state.editItem,
-    isAdd: state.isAdd,
+    editItem: editItem,
+    // isAdd: isAdd
   };
+  //handleImage là gọi trong store (combineReducers), editItem là phan tu trong state ở file handleImageReducer.js
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
