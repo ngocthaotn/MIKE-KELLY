@@ -39,8 +39,8 @@ class ImagesList extends Component {
     if (this.state.dataFirebase) {
       return this.state.dataFirebase.map((value, key) => {
         return (
-          <div className='col col-xxl-3 imgItem pb-2' key={key}>
-            <img src={value.image_src} alt=''></img>
+          <div className='col col-md-3 col-xxl-3  imgItem' key={key}>
+            <img className='img-fluid' src={value.image_src} alt=''></img>
           </div>
         );
       });

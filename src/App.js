@@ -29,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <div className='container'>
-        <div className='row flex-column flex-xxl-row mb-4'>
+        <div className='row flex-column flex-xl-row flex-xxl-row mb-4'>
           <ToastContainer position='top-right' />
           <Navbar />
           <RouterURL />

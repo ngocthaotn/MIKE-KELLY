@@ -56,37 +56,40 @@ class Navbar extends Component {
           </button>
           <div className='collapse navbar-collapse' id='nav'>
             <ul className='navbar-nav flex-column mt-4'>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/'>
-                  Home
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/portfolio'>
-                  Portfolio
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/about'>
-                  About
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/books'>
-                  Books
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/printshop'>
-                  Print shop
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/contact'>
-                  Contact
-                </NavLink>
-              </li>
-
+              <div className='nav-home'>
+                <li className='nav-item'>
+                  <NavLink className='nav-link' to='/'>
+                    Home
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink className='nav-link' to='/portfolio'>
+                    Portfolio
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink className='nav-link' to='/about'>
+                    About
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink className='nav-link' to='/books'>
+                    Books
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink className='nav-link' to='/printshop'>
+                    Print shop
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink className='nav-link' to='/contact'>
+                    Contact
+                  </NavLink>
+                </li>
+              </div>
+            </ul>
+            <ul className='navbar-nav mt-4'>
               <div className='nav-login'>
                 <li className='nav-item'>
                   <NavLink

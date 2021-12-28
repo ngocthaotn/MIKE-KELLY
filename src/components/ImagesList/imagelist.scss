@@ -1,7 +1,12 @@
 .imgItem {
+  margin-bottom: 1.7rem;
   img {
-    width: 372px ;
-    height: 248px ;
+    width: 35vw;
+    height: 30vh;
     object-fit: cover ;
   }
+  // @media(min-width: 1921px) {
+  //   width: 500px;
+  //   height: 400px;
+  // }
 }
