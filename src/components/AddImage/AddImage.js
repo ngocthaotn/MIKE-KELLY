@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-
+import './addimage.scss';
 class AddImage extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +13,7 @@ class AddImage extends Component {
       descript: '',
     };
   }
+
   componentDidMount() {
     if (this.props.editItem) {
       this.setState({
@@ -31,10 +32,8 @@ class AddImage extends Component {
 
     this.setState({ [name]: value });
   };
-  setField = () => {
-    this.props.setField();
-  };
-  addEditData = (imgURL, title, date, descript) => {
+
+  addEditData = (imgURL, title, date, descript, event) => {
     if (!this.state.image_src || !this.state.title || !this.state.date || !this.state.descript) {
       toast.error('Please provide value in each input field!!!');
     } else {
@@ -48,8 +47,6 @@ class AddImage extends Component {
 
         toast.success('Update data successfully!!!');
         this.props.editDataStore(editObject);
-
-        // this.props.changeAddStatusStore();
       } else {
         let item = {};
         item.image_src = imgURL;
@@ -58,25 +55,16 @@ class AddImage extends Component {
         item.descript = descript;
 
         this.props.addDataStore(item);
-        //this.props.setField();
+        this.props.setField();
         toast.success('Add data successfully!!!');
-
-        //this.props.changeAddStatusStore();
       }
     }
   };
-  // changeTitle = () => {
-  //   if (this.props.isAdd) {
-  //     return <h3>ADD IMAGE</h3>;
-  //   } else {
-  //     return <h3>EDIT IMAGE</h3>;
-  //   }
-  // };
+
   render() {
     return (
-      <div className='col px-0 flex-grow-1 '>
-        <form>
-          {/* {this.changeTitle()} */}
+      <div className='col px-0 flex-grow-1 formAddImage'>
+        <form className=''>
           <div className='mb-3'>
             <label className='form-label'>Link image *</label>
             <input
@@ -124,7 +112,7 @@ class AddImage extends Component {
             />
           </div>
           <div
-            className='btn btn-outline-dark '
+            className='btn btn-outline-dark mb-2'
             type='button'
             onClick={() =>
               this.addEditData(
@@ -137,7 +125,6 @@ class AddImage extends Component {
           >
             Save
           </div>
-          {/* <input className='btn btn-outline-warning ' type='reset' value='Reset' /> */}
         </form>
       </div>
     );
@@ -146,7 +133,6 @@ class AddImage extends Component {
 const mapStateToProps = ({ handleImage: { editItem } }) => {
   return {
     editItem: editItem,
-    // isAdd: isAdd
   };
   //handleImage là gọi trong store (combineReducers), editItem là phan tu trong state ở file handleImageReducer.js
 };
@@ -162,9 +148,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setField: () => {
       dispatch({ type: 'SET_FIELD' });
     },
-    // changeAddStatusStore: () => {
-    //   dispatch({ type: 'CHANGE_EDIT_STATUS' });
-    // },
   };
 };
 

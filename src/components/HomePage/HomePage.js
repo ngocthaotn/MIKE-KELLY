@@ -1,11 +1,53 @@
 import React, { Component } from 'react';
 import './homepage.scss';
+import firebaseData from '../../firebaseConnect';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = {
+      dataFirebase: [],
+    };
   }
+  componentDidMount() {
+    const data = firebaseData.database().ref().child('dataImage');
+    data.on('value', (items) => {
+      const arrayData = [];
+      items.forEach((element) => {
+        const key = element.key;
+        const image_src = element.val().image_src;
+        const title = element.val().title;
+        const date = element.val().date;
+        const descript = element.val().descript;
+
+        arrayData.push({
+          id: key,
+          image_src: image_src,
+          title: title,
+          date: date,
+          descript: descript,
+        });
+      });
+
+      this.setState({
+        dataFirebase: arrayData,
+      });
+    });
+  }
+
+  getData = () => {
+    if (this.state.dataFirebase) {
+      return this.state.dataFirebase.map((value, key) => {
+        return (
+          <div className='carousel-item' key={key}>
+            <img src={value.image_src} className='d-block img-fluid mx-auto' alt='...' />
+          </div>
+        );
+      });
+    }
+  };
+  componentWillUnmount() {}
   render() {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>
@@ -14,50 +56,15 @@ class HomePage extends Component {
           className='carousel carousel-dark slide'
           data-bs-ride='carousel'
         >
-          <div className='carousel-indicators'>
-            <button
-              type='button'
-              data-bs-target='#carouselExampleDark'
-              data-bs-slide-to={0}
-              className='active'
-              aria-current='true'
-              aria-label='Slide 1'
-            />
-            <button
-              type='button'
-              data-bs-target='#carouselExampleDark'
-              data-bs-slide-to={1}
-              aria-label='Slide 2'
-            />
-            <button
-              type='button'
-              data-bs-target='#carouselExampleDark'
-              data-bs-slide-to={2}
-              aria-label='Slide 3'
-            />
-          </div>
           <div className='carousel-inner'>
-            <div className='carousel-item active '>
+            <div className='carousel-item active'>
               <img
-                src='https://images.squarespace-cdn.com/content/v1/5adb89f2aa49a19e7960b934/1557071844825-DICEAAA510FZSILQ486A/mike-kelley-broad-museum.jpg?format=1000w'
+                src='https://cdn.theatlantic.com/media/img/photo/2018/10/images-of-the-season-fall-is-in-the/f02_RTX6EJJJ-1/original.jpg'
                 className='d-block img-fluid mx-auto'
                 alt='...'
               />
             </div>
-            <div className='carousel-item'>
-              <img
-                src='https://images.squarespace-cdn.com/content/v1/5adb89f2aa49a19e7960b934/1557071842950-L18HQQZG8DDTDE8S28II/mike-kelley-brickell-interior.jpg'
-                className='d-block img-fluid mx-auto'
-                alt='...'
-              />
-            </div>
-            <div className='carousel-item'>
-              <img
-                src='https://images.squarespace-cdn.com/content/v1/5adb89f2aa49a19e7960b934/1608602979923-6PW5561L0G0LZFUA6Z9Q/image-asset.jpeg?format=1000w'
-                className='d-block img-fluid mx-auto'
-                alt='...'
-              />
-            </div>
+            {this.getData()}
           </div>
           <button
             className='carousel-control-prev'

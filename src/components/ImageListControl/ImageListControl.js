@@ -36,7 +36,11 @@ class ImageListControl extends Component {
       });
     });
   }
-
+  componentWillUnmount() {
+    this.setState({
+      dataFirebase: [],
+    });
+  }
   getData = () => {
     if (this.state.dataFirebase) {
       return this.state.dataFirebase.map((value, key) => {

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './login.scss';
 import firebaseData from '../../../firebaseConnect';
-import { Link, withRouter } from 'react-router-dom';
-import ImageControl from '../../ImageControl/ImageControl';
+// import ImageControl from '../../ImageControl/ImageControl';
 import { toast } from 'react-toastify';
-import { createBrowserHistory } from 'history';
+import history from '../../../history';
 
 class Login extends Component {
   constructor(props) {
@@ -14,9 +13,10 @@ class Login extends Component {
       email: '',
       password: '',
       errors: [],
-      view: false,
+      // view: false,
     };
   }
+
   isChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -24,12 +24,12 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  changeView = () => {
-    this.setState({ view: true });
-    if (this.state.view) {
-      return <ImageControl />;
-    }
-  };
+  // changeView = () => {
+  //   this.setState({ view: true });
+  //   if (this.state.view) {
+  //     return <ImageControl />;
+  //   }
+  // };
 
   isFormValid = () => this.state.email && this.state.password;
 
@@ -43,11 +43,11 @@ class Login extends Component {
       firebaseData
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then((signedInUser) => {
-          console.log('dang nhap thanh cong' + signedInUser);
+        .then(() => {
+          console.log('User login');
 
-          const history = createBrowserHistory({ forceRefresh: true });
-          history.push('/image-control');
+          // const history = createBrowserHistory({ forceRefresh: true });
+          // history.push('/image-control');
         })
         .catch((err) => {
           toast.error('Email or password is empty!!!');
@@ -58,8 +58,7 @@ class Login extends Component {
     }
   };
 
-  formReset = () => {
-    const history = createBrowserHistory();
+  showForgotPassword = () => {
     history.push('/forgot-password');
   };
 
@@ -98,12 +97,12 @@ class Login extends Component {
             />
           </div>
           <div className='mb-4 text-center'>
-            {/* <Link to='/forgot-password' onClick={() => this.formReset()}>
-              Forgot password?
-            </Link> */}
+            <button className='btn btn-dark'>Login</button>
           </div>
           <div className='mb-4 text-center'>
-            <button className='btn btn-dark'>Login</button>
+            <button className='btn' onClick={() => this.showForgotPassword()}>
+              Forgot password?
+            </button>
           </div>
         </form>
       </div>
@@ -111,4 +110,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default Login;

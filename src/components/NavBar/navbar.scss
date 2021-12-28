@@ -9,18 +9,25 @@
     
   }
 }
-
-.nav-link{
-  color: rgba(0,0,0,.75);
-  padding: 0.2em !important;
-  padding-bottom: 0 !important;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5rem;
-  letter-spacing: .02em;
-  &:hover {
-    color: #ff4081;
+.navbar {
+  position: fixed;
+}
+.nav{
+  &-link {
+    color: rgba(0,0,0,.75);
+    padding: 0.2em !important;
+    padding-bottom: 0 !important;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5rem;
+    letter-spacing: .02em;
+    &:hover {
+      color: #ff4081;
+    }
   }
+ &-login {
+   margin-top: 40em;
+ }
 }
 
 

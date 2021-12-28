@@ -1,0 +1,16 @@
+.imgControl {
+  margin-top: 3.7em;
+  // &-body {
+  //   background-color: #eeeeee;
+  // }
+  .groupBtnManager {
+    .btn:active, .btn:focus {
+      box-shadow: none !important;
+   }
+ 
+   .btn:hover {
+     color: #ff4081;
+   }
+ }
+}
+

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ImageItem from '../ImageItem/ImageItem';
 import firebaseData from '../../firebaseConnect';
-
+import './imagelist.scss';
 class ImagesList extends Component {
   constructor(props) {
     super(props);
@@ -40,18 +39,19 @@ class ImagesList extends Component {
     if (this.state.dataFirebase) {
       return this.state.dataFirebase.map((value, key) => {
         return (
-          <ImageItem
-            key={key}
-            note={value}
-            imgLink={value.image_src}
-            title={value.title}
-            date={value.date}
-            descript={value.descript}
-          />
+          <div className='col col-xxl-3 imgItem pb-2' key={key}>
+            <img src={value.image_src} alt=''></img>
+          </div>
         );
       });
     }
   };
+
+  componentWillUnmount() {
+    this.setState({
+      dataFirebase: [],
+    });
+  }
   render() {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>

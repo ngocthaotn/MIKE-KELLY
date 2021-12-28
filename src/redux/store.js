@@ -10,8 +10,8 @@ const allReducer = redux.combineReducers({
 
 var store = redux.createStore(allReducer);
 
-store.subscribe(function () {
-  console.log(JSON.stringify(store.getState()));
-});
+// store.subscribe(function () {
+//   console.log(JSON.stringify(store.getState()));
+// });
 
 export default store;

@@ -15,35 +15,30 @@ class App extends Component {
   componentDidMount() {
     firebaseData.auth().onAuthStateChanged((user) => {
       if (user) {
-        history.push('/image-control');
+        history.replace('/image-control');
         this.props.setUser(user);
       } else {
-        history.push('/');
+        history.replace('/');
         this.props.clearUser();
       }
     });
   }
-
+  componentWillUnmount() {
+    return null;
+  }
   render() {
-    //const { loading } = this.props;
     return (
       <div className='container'>
-        <div className='row flex-column flex-md-row'>
+        <div className='row flex-column flex-xxl-row mb-4'>
           <ToastContainer position='top-right' />
           <Navbar />
           <RouterURL />
-          {/* {loading ? <HomePage /> : <RouterURL />} */}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ user: { loading } }) => {
-  return {
-    loading: loading,
-  };
-};
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setUser: (user) => {
@@ -54,4 +49,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
   };
 };
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(null, mapDispatchToProps)(App));

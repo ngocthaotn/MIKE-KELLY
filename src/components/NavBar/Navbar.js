@@ -1,17 +1,43 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import './navbar.scss';
-
+import firebaseData from '../../firebaseConnect';
+import Manager from './Manager';
+import Login from './Login';
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      status: false,
+    };
+  }
+
+  componentDidMount() {
+    firebaseData.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log('true');
+        return this.setState({
+          status: !this.state.status,
+        }); //true
+      } else {
+        console.log('false');
+        this.setState({
+          status: false,
+        }); //false
+      }
+    });
+  }
+  componentWillUnmount() {
+    this.setState({
+      status: false,
+    });
   }
   render() {
+    console.log('state: ' + this.state.status);
     return (
-      <aside className='col-12 col-md-4 col-xl-3 col-xxl-2 p-0 bg-white mt-5'>
+      <aside className='col-12 col-md-4 col-xl-3 col-xxl-2 p-0 bg-white'>
         <nav
-          className='navbar navbar-expand-md navbar-white bd-white flex-md-column flex-row py-2 sticky-top'
+          className='navbar navbar-expand-md navbar-white bd-white flex-md-column flex-row sticky-top mt-5'
           id='sidebar'
         >
           <a className='navbar-brand' href='/'>
@@ -19,8 +45,8 @@ class Navbar extends Component {
               className='image-fluid'
               src='https://images.squarespace-cdn.com/content/v1/5adb89f2aa49a19e7960b934/1524871266847-1645UR5VMWWJLZ1QPC6S/mike-kelley-logo.png?format=750w'
               alt=''
-              width='240'
-              height='40'
+              width='210'
+              height='35'
             />
           </a>
           <button
@@ -38,44 +64,57 @@ class Navbar extends Component {
             <ul className='navbar-nav flex-column mt-2'>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/'>
-                  HOME
+                  Home
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/portfolio'>
-                  PORTFOLIO
+                  Portfolio
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/about'>
-                  ABOUT
+                  About
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/books'>
-                  BOOKS
+                  Books
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/printshop'>
-                  PRINT SHOP
+                  Print shop
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/contact'>
-                  CONTACT
+                  Contact
                 </NavLink>
               </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/login'>
-                  SIGN IN
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' to='/images'>
-                  SHOW THUMBNAILS
-                </NavLink>
-              </li>
+              <div className='nav-login'>
+                <li className='nav-item'>
+                  {/* <NavLink
+                    className={this.state.status ? 'nav-link disabled' : 'nav-link'}
+                    to='/login'
+                  >
+                    Login
+                  </NavLink> */}
+                  <NavLink
+                    className='nav-link'
+                    to={this.state.status ? '/image-control' : '/login'}
+                  >
+                    {this.state.status ? 'Manager' : 'Login'}
+                  </NavLink>
+                </li>
+                {/* {this.state ? <Manager /> : <Login />} */}
+                {/* {this.changeStatus} */}
+                <li className='nav-item'>
+                  <NavLink className='nav-link' to='/images'>
+                    Show thumbnails
+                  </NavLink>
+                </li>
+              </div>
             </ul>
           </div>
         </nav>
@@ -84,4 +123,5 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
+// export default Navbar;

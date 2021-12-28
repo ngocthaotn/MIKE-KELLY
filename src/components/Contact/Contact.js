@@ -48,7 +48,7 @@ class Contact extends Component {
 
   render() {
     return (
-      <div className='col flex-grow-1 contact my-auto'>
+      <div className='col flex-grow-1 contact'>
         <form onSubmit={this.submitForm}>
           <div>
             <h3 className='contact-title mb-4'>Contact</h3>

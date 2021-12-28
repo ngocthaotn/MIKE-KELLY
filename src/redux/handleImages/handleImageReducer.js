@@ -26,7 +26,7 @@ const handleImageReducer = (state = handleImageInitialState, action) => {
       firebaseData.database().ref('dataImage/').child(action.deleteId).remove();
       return state;
     case 'SET_FIELD':
-      return { ...state, editItem: {} };
+      return { ...state, isEdit: !state.isEdit, editItem: {} };
     default:
       return state;
   }

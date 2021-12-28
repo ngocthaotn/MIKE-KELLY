@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-//import './imageitemcontrol.scss';
+import './imageitemcontrol.scss';
 
 class ImageItemControl extends Component {
   getEditData = () => {
