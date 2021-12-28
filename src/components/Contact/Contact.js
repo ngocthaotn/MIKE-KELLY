@@ -124,8 +124,8 @@ class Contact extends Component {
             />
           </div>
           <div className='d-grid justify-content-end'>
-            <button type='submit' className='btn btn-dark' value='Send'>
-              Submit
+            <button type='submit' className='btn btn-submit' value='Send'>
+              SUBMIT
             </button>
           </div>
         </form>

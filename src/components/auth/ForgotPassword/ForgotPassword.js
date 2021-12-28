@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import firebaseData from '../../../firebaseConnect';
+import './forgotpassword.scss';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -30,11 +31,11 @@ class ForgotPassword extends Component {
       .sendPasswordResetEmail(email)
       .then((email) => {
         console.log(email);
-        toast.success('Check your email');
+        toast.success('Check your email!!');
       })
       .catch((error) => {
         console.log(this.state.email);
-        var errorCode = error.code;
+        // var errorCode = error.code;
         var errorMessage = error.message;
         toast.error('Message: ' + errorMessage);
       });
@@ -44,7 +45,7 @@ class ForgotPassword extends Component {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>
         <form
-          className='login mx-auto mt-4 shadow p-3 mb-5 bg-white rounded'
+          className='forgot-password mx-auto mt-4 shadow p-3 mb-5 bg-white rounded'
           onSubmit={this.handleSubmit}
         >
           <div>
@@ -64,7 +65,7 @@ class ForgotPassword extends Component {
             />
           </div>
           <div className='mb-4 text-center'>
-            <button className='btn btn-dark'>Submit</button>
+            <button className='btn btn-submit'>Submit</button>
           </div>
         </form>
       </div>

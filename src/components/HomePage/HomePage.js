@@ -47,7 +47,11 @@ class HomePage extends Component {
       });
     }
   };
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.setState({
+      dataFirebase: [],
+    });
+  }
   render() {
     return (
       <div className='col px-0 flex-grow-1 mt-5'>

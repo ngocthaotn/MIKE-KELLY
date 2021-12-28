@@ -23,10 +23,11 @@ class ImageItemControl extends Component {
             <p className='card-text'>{this.props.date}</p>
             <p className='card-text'>{this.props.descript}</p>
             <div className='btn-group'>
-              <button className='btn btn-primary' onClick={() => this.getEditData()}>
+              <button className='btn btn-outline-warning' onClick={() => this.getEditData()}>
                 Edit
               </button>
-              <button className='btn btn-danger' onClick={() => this.deleteData()}>
+              &nbsp;&nbsp;
+              <button className='btn btn-outline-danger' onClick={() => this.deleteData()}>
                 Delete
               </button>
             </div>

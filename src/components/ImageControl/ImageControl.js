@@ -33,8 +33,8 @@ class ImageControl extends Component {
     return (
       <div className='col px-0 flex-grow-1 imgControl'>
         <div className='row mb-2 imgControl-body'>
-          <h2 className='col'>Manager</h2>
-          <div className='btn-group col groupBtnManager'>
+          <h2 className='col col-xxl-9'>Manager</h2>
+          <div className='col col-xxl-3 btn-group groupBtnManager'>
             <button className='btn text-end btn-addImage' onClick={() => this.changeAddStatus()}>
               Add image <FaPlusCircle />
             </button>

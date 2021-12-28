@@ -1,33 +1,46 @@
-// @font-face {
-//   font-family: Proxima-Nova;
-//   src: url(../../fonts/Proxima-Nova-Font.otf);
-// }
 .navbar {
+  position: fixed;
   align-items: flex-start !important;
   .active {
     color: #000 !important;
-    
   }
-}
-.navbar {
-  position: fixed;
-}
-.nav{
-  &-link {
-    color: rgba(0,0,0,.75);
-    padding: 0.2em !important;
-    padding-bottom: 0 !important;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5rem;
-    letter-spacing: .02em;
-    &:hover {
-      color: #ff4081;
+  &-brand {
+    img {
+      width: 14vw;
     }
+  } 
+  &-nav {
+    .nav{
+      &-item:nth-child(4){
+        margin-top: 2rem;
+      }
+      &-link {
+
+        color: rgba(0,0,0,.75);
+        padding: 0.2em !important;
+        padding-bottom: 0 !important;
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        letter-spacing: .02em;
+        &:hover {
+          color: #ff4081;
+        }
+      }
+      
+      &-login {
+       padding-top: 54vh;
+      }
+      @media(min-width: 425px) {
+        &-login {
+          // padding-top: 54vh;
+         }
+      }
+   }
   }
- &-login {
-   margin-top: 40em;
- }
+ 
 }
+
+
 
 

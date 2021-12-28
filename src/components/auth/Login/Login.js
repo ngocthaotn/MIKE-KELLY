@@ -97,10 +97,10 @@ class Login extends Component {
             />
           </div>
           <div className='mb-4 text-center'>
-            <button className='btn btn-dark'>Login</button>
+            <button className='btn btn-submit'>Login</button>
           </div>
           <div className='mb-4 text-center'>
-            <button className='btn' onClick={() => this.showForgotPassword()}>
+            <button className='btn btn-forgotPass' onClick={() => this.showForgotPassword()}>
               Forgot password?
             </button>
           </div>
