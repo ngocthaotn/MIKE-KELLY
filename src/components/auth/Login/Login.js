@@ -4,7 +4,9 @@ import firebaseData from '../../../firebaseConnect';
 // import ImageControl from '../../ImageControl/ImageControl';
 import { toast } from 'react-toastify';
 import history from '../../../history';
-
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setUser, clearUser } from '../../../redux/users/userActions';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -13,23 +15,29 @@ class Login extends Component {
       email: '',
       password: '',
       errors: [],
-      // view: false,
     };
   }
-
+  //check user
+  // componentDidMount() {
+  //   firebaseData.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       history.replace('/image-control');
+  //       this.props.setUser(user);
+  //     } else {
+  //       history.replace('/login');
+  //       this.props.clearUser();
+  //     }
+  //   });
+  // }
+  // componentWillUnmount() {
+  //   return null;
+  // }
   isChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
     this.setState({ [name]: value });
   };
-
-  // changeView = () => {
-  //   this.setState({ view: true });
-  //   if (this.state.view) {
-  //     return <ImageControl />;
-  //   }
-  // };
 
   isFormValid = () => this.state.email && this.state.password;
 
@@ -47,7 +55,7 @@ class Login extends Component {
           console.log('User login');
 
           // const history = createBrowserHistory({ forceRefresh: true });
-          // history.push('/image-control');
+          history.replace('/image-control');
         })
         .catch((err) => {
           toast.error('Email or password is empty!!!');
@@ -110,4 +118,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+// export default Login;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setUser: (user) => {
+      dispatch(setUser(user));
+    },
+    clearUser: () => {
+      dispatch(clearUser());
+    },
+  };
+};
+export default withRouter(connect(null, mapDispatchToProps)(Login));

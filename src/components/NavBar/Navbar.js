@@ -92,11 +92,8 @@ class Navbar extends Component {
             <ul className='navbar-nav mt-4'>
               <div className='nav-login'>
                 <li className='nav-item'>
-                  <NavLink
-                    className='nav-link'
-                    to={this.state.status ? '/image-control' : '/login'}
-                  >
-                    {this.state.status ? 'Manager' : 'Login'}
+                  <NavLink className='nav-link' to={this.state.status ? '/image-control' : ''}>
+                    {this.state.status ? 'Manager' : ''}
                   </NavLink>
                 </li>
 
